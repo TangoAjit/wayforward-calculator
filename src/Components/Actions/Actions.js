@@ -10,29 +10,29 @@ const Actions = (props) => {
     }
     return (
        <div className="action-container">
-           <div>
+           <div className="row">
             <div onClick={clickHandler(0)}>0</div>
             <div onClick={clickHandler(1)}>1</div>
             <div onClick={clickHandler(2)}>2</div>
-            <div onClick={clickHandler(2)}>3</div>
+            <div onClick={clickHandler('+')}>+</div>
            </div>
-           <div>
+           <div className="row">
+            <div onClick={clickHandler(3)}>3</div>
             <div onClick={clickHandler(4)}>4</div>
             <div onClick={clickHandler(5)}>5</div>
-            <div onClick={clickHandler(6)}>6</div>
-            <div onClick={clickHandler(7)}>7</div>
-           </div>
-           <div>
-            <div onClick={clickHandler(8)}>8</div>
-            <div onClick={clickHandler(9)}>9</div>
-            <div onClick={clickHandler('+')}>+</div>
             <div onClick={clickHandler('-')}>-</div>
            </div>
-           <div>
+           <div className="row">
+            <div onClick={clickHandler(6)}>6</div>
+            <div onClick={clickHandler(7)}>7</div>
+            <div onClick={clickHandler(8)}>8</div>
             <div onClick={clickHandler('*')}>*</div>
-            <div onClick={clickHandler('/')}>/</div>
+           </div>
+           <div className="row">
+            <div onClick={clickHandler(9)}>9</div>
+            <div onClick={clickHandler('c')}>clear</div>
             <div onClick={clickHandler('=')}>=</div>
-            <div onClick={clickHandler('c')}>Clear</div>
+            <div onClick={clickHandler('/')}>/</div>
            </div>
        </div>
     )

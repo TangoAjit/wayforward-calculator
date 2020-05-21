@@ -1,65 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InputField from '../InputField/InputField';
 import Actions from '../Actions/Actions';
-import actions from '../Actions/helper';
+import { calculate, getPreValue } from './helpers';
 
 const Calculator = () => {
-    const [num1, setNum1] = useState(undefined);
-    const [num2, setNum2] = useState(undefined);
-    const [result, setResult] = useState(undefined);
+    const [num1, setNum1] = useState(0);
+    const [num2, setNum2] = useState(0);
+    const [result, setResult] = useState(0);
+    const [displayValue, setDisplayValue] = useState(0);
     const [action, setAction] = useState();
-    const [stage, setStage] = useState(1);
-    const getValue = () => {
-        switch (stage) {
-            case 1:
-                return num1;
-            case 2:
-                return num2;
-            case 3:
-                return result;
-            default:
-                return undefined;
-        }
+    useEffect(() => { if (num1) setDisplayValue(num1); }, [num1])
+    useEffect(() => { if (num2) setDisplayValue(num2); }, [num2])
+    useEffect(() => { if (result) addDelay(result); }, [result])
+    useEffect(() => { if(action) addDelay(displayValue) }, [action])
+    const addDelay = (value) => {
+        setDisplayValue('');
+        setTimeout(() => {
+            setDisplayValue(value);
+        }, 200);
     }
     const getChangeHandler = () => {
-        switch (stage) {
-            case 1:
-                return setNum1;
-            case 2:
-                return setNum2;
-            default:
-                return undefined;
-        }
-    }
-    const getResult = () => {
-        switch(action) {
-            case '+':
-                return num1 + num2;
-            case '-':
-                return num1 + num2;
-            case '8':
-                return num1 + num2;
-            case '/':
-                return num1 + num2;
-            default:
-                return 0;
-        }
+        if(action) return setNum2;
+        return setNum1;
     }
     const setActions = (actionKey) => {
         if (actionKey === '=' && num1 && num2 && action) {
             if (action !== '/' || (action === '/' && num2 !== 0)) {
-                const result = getResult();
+                const result = calculate(action, num1, num2);
                 setResult(result);
+                setNum1(0);
             }
-        } else if (['+', '-', '*', '/'].contains(actionKey)) {
+        } else if (['+', '-', '*', '/'].includes(actionKey)) {
             setAction(actionKey);
-        }
+            if (result) setNum1(result);
+            else if (num2) setNum1(num2);
+            setResult(0);
+            setNum2(0);
+        } else if (actionKey === 'c') {
+            setNum1(0);
+            setNum2(0);
+            setResult(0);
+            setAction('');
+            setDisplayValue(0);
+        } else if (!action || (result && action)) setNum1(getPreValue(num1) + actionKey);
+        else setNum2(getPreValue(num2) + actionKey);
     }
-    console.log(num1);
     return (
         <React.Fragment>
-            <InputField value={getValue()} onChange={getChangeHandler()} />
-            <Actions setStage={setStage} setAction={setActions} />
+            <InputField value={displayValue} onChange={getChangeHandler()} />
+            <Actions setAction={setActions} />
         </React.Fragment>
     )
 };

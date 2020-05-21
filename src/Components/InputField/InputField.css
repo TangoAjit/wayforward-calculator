@@ -1,0 +1,9 @@
+.input-field {
+    width: 206px;
+    height: 27px;
+    background-color: #bbb5b5;
+    border: none;
+    border-bottom: 2px solid black;
+    text-align: end;
+    font-size: 24px;
+}
