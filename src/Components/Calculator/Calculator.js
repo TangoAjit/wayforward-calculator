@@ -9,9 +9,9 @@ const Calculator = () => {
     const [result, setResult] = useState(0);
     const [displayValue, setDisplayValue] = useState(0);
     const [action, setAction] = useState();
-    useEffect(() => { if (num1) setDisplayValue(num1); }, [num1])
-    useEffect(() => { if (num2) setDisplayValue(num2); }, [num2])
-    useEffect(() => { if (result) addDelay(result); }, [result])
+    useEffect(() => { if (num1 === 0 || num1) setDisplayValue(num1); }, [num1])
+    useEffect(() => { if (num2 === 0 || num2) setDisplayValue(num2); }, [num2])
+    useEffect(() => { if (result === 0 || result) addDelay(result); }, [result])
     useEffect(() => { if(action) addDelay(displayValue) }, [action])
     const addDelay = (value) => {
         setDisplayValue('');

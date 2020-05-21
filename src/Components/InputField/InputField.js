@@ -4,13 +4,20 @@ import './InputField.css';
 
 const InputField = (props) => {
     const { value, onChange } = props;
-    const changeHandler = ({target: { value }}) => onChange(value);
+    const changeHandler = ({target: { value }}) => {
+        try {
+            onChange(parseInt(value || 0));
+        } catch (error) {
+            alert('Only Numbers are allowed');
+        }   
+    }
     return (
         <input
             className="input-field"
             type="number"
             value={value}
             onChange={changeHandler}
+            autoFocus
         />
     )
 };

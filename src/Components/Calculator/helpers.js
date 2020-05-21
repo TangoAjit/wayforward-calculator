@@ -1,13 +1,15 @@
 export const calculate = (action, operand1, operand2) => {
+    const num1 = parseInt(operand1);
+    const num2 = parseInt(operand2)
     switch(action) {
         case '+':
-            return operand1 + operand2;
+            return num1 + num2;
         case '-':
-            return operand1 - operand2;
+            return num1 - num2;
         case '*':
-            return operand1 * operand2;
+            return num1 * num2;
         case '/':
-            return operand1 / operand2;
+            return num1 / num2;
         default:
             return 0;
     }
